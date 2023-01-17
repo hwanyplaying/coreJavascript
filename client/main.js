@@ -1,85 +1,72 @@
+/* global gsap */
 
-
-
-/* eslint no-undef:'warn' */
-/* eslint no-unused-vars: 'off' */
-
-
-
-
-
-
-
-// 1. 인풋 벨류값 가져오기
-// 2. 이벤트 핸들러 연결하기
-// 3. 이벤트 기본동작 차단하기
-// 4. 두 수의 합을 더해주기 
-// 5. 화면에 출력하기
-
-
-import { 
-  getNode,
-  sum,
-  getInputValue,
+import {
   clearContents,
+  getInputValue,
+  getNode,
+  getRandom,
   insertLast,
- } from "./lib/index.js";
+  isNumericString,
+  addClass,
+  removeClass,
+  toggleClass,
+  showAlert,
+  copy,
+} from './lib/index.js';
 
+import { jujeobData } from './data/data.js';
 
+const submit = getNode('#submit');
+const resultArea = getNode('.result');
 
- 
-
-
-
-const firstInput = getNode('#firstNumber');
-const secondInput = getNode('#secondNumber');
-const done = getNode('#done');
-const result = getNode('.result');
-
-
-
-
-function handler(e){
+function clickSubmitHandler(e) {
   e.preventDefault();
 
-  let firstValue = +getInputValue(firstInput);
-  let secondValue = +getInputValue(secondInput);
-  let total = sum(firstValue, secondValue)
+  let name = getInputValue('#nameField');
+  let list = jujeobData(name);
+  let pick = list[getRandom(list.length - 1)];
+
+  if (!name) {
+    console.log('이름을 입력해 주세요!');
+    showAlert('.alert-error', '잘못된 정보입니다.!', 2000);
 
 
-  
-  clearContents(result);
+    // GSAP 
+    gsap.fromTo(resultArea, 0.01, {x:-5}, {x:5, clearProps:"x", repeat:20})
+    // addClass(resultArea,'shake');
+    // setTimeout(() => {
+    //   removeClass(resultArea,'shake');
+    // }, 1000);
 
-  insertLast(result,total);
-  
+    return;
+  }
+
+  if (isNumericString(name)) {
+    console.log('제대로된 이름을 입력해주세요.');
+    gsap.fromTo(resultArea, 0.01, {x:-5}, {x:5, clearProps:"x", repeat:20})
+    showAlert('.alert-error', '정확한 이름을 입력해주세요!', 2000);
+    return;
+  }
+
+  clearContents(resultArea);
+  insertLast(resultArea, pick);
 }
 
-
-
-function inputHandler(){
-  let firstValue = +getInputValue(firstInput);
-  let secondValue = +getInputValue(secondInput);
-  let total = sum(firstValue, secondValue)
-
-
+function clickCopyHandler(){
+  let text = resultArea.textContent;
+  // navigator.clipboard.writeText(text);
+  copy(text).then(()=>{
+    showAlert('.alert-success','클립보드 복사가 완료됐습니다.',2000)
+  })
   
-  clearContents(result);
-
-  insertLast(result,total);
+  // 약속구문 
+  
+  // 약속 
+  // 다음 해야 할 일 
 }
 
-
-
-done.addEventListener('click',handler)
-
-firstInput.addEventListener('change',inputHandler)
-secondInput.addEventListener('change',inputHandler)
-
-
-
-
-
-
+submit.addEventListener('click', clickSubmitHandler);
+resultArea.addEventListener('click', clickCopyHandler);
 
 
 
