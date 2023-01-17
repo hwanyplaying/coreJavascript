@@ -5,63 +5,37 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./style.css" />
-  <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script> -->
-
-  
-  <!-- <script src="./lib/dom/typeOf.js"></script> -->
-  <script src="./lib/dom/getNode.js"></script>
-  <script src="./lib/error/typeError.js"></script>
-  <script src="./lib/dom/attr.js"></script>
-  <script src="./lib/dom/insert.js"></script>
-  <script src="./lib/dom/css.js"></script>
-  <script src="./lib/dom/bindEvent.js"></script>
   
 
-  <script defer src="./chapter/dom/07.bubble.js"></script>
+  <script type="module" src="./main.js"></script>
   
-  <!-- <script defer src="./chapter/dom/05.styling.js"></script> -->
-  
-  
-  <title>javascript core</title>
+  <title>calculator</title>
 </head>
 <body>
   
-
-  <h1>
-    <span class="first">hello</span>
-
+  
+  <form class="calculator">
+    <div class="first">
+      <label for="firstNumber">First Value</label>
+      <input type="number" name="first" id="firstNumber" required/>
+    </div>
     
-
-    <!-- 주석이지롱 -->
-
+    <div class="operator"> 
+     +
+    </div>
     
-    <span class="second">world</span>
-  </h1>
+    <div class="second">
+      <label for="secondNumber">Second Value</label>
+      <input type="number" name="second" id="secondNumber" required/>
+    </div>
+  
+    <input id="done" type="submit" value="done"/>
 
+    <div class="result">
+      -
+    </div>
 
-<!-- 
-  <div class="ground">
-    <img class="ball" src="https://en.js.cx/clipart/ball.svg" alt="축구공" />
-  </div>
-
- -->
-
-
- <section class="visual">
-  <div class="pop"></div>
-  <article class="news">
-    <p class="desc">Lorem ipsum dolor sit amet.</p>
-  </article>
- </section>
-
-
+  </form>
 
 </body>
 </html>
-
-
-
-
-
-
-
